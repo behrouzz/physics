@@ -10,8 +10,8 @@ mu_water  = 10e-3 * u('kg /(m s)')
 when dt --> 0 :
 f(t+dt) = f(t) + f'(t)*dt
 """
-
-#import numpy as np
+#https://www.deboecksuperieur.com/site/328907
+import numpy as np
 #from astropy.constants import G, M_earth, R_earth
 #from astropy.units import Unit as u
 
@@ -56,3 +56,28 @@ def drag(rho, R, v, mu):
         raise Exception('Complicated case!')
     #F = F.to('N')
     return F
+
+
+def get_alpha(R, rho_b, rho, h, g=9.81):
+    """
+    R     : radius of the ball (m)
+    rho_b : density of the ball
+    rho   : density of the air
+    h     : initial height
+    g     : acceleration
+    """
+    return (3*rho)/(16*rho_b*R*g)
+
+
+def get_vlim(R, rho_b, rho, h, g=9.81):
+    """
+    Get Terminal velocity
+    (maximum speed attainable by an object as it falls through a fluid)
+    
+    R     : radius of the ball (m)
+    rho_b : density of the ball
+    rho   : density of the air
+    h     : initial height
+    g     : acceleration
+    """
+    return 1 / np.sqrt(get_alpha(R, rho_b, rho, h, g))
