@@ -28,9 +28,9 @@ def general_time_dilation(M, r):
     return dt_DIVdt
 
 
-
-sp.furnsh('de440s.bsp')
-sp.furnsh('naif0012.tls')
+adr = 'C:/Users/H21/Desktop/Desktop/Behrouz/Astronomy/kernels/'
+sp.furnsh(adr+'de440s.bsp')
+sp.furnsh(adr+'naif0012.tls')
 et = sp.str2et('2023-07-01')
 state, lt = sp.spkez(targ=399, et=et, ref='J2000', abcorr='NONE', obs=10)
 pos = state[:3]
