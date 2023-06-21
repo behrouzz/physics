@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from astropy import units as u
 from astropy.time import Time
-from astropy.constants import c, G, M_sun, R_sun, au
+from astropy.constants import c, G, M_sun, R_sun, M_earth, R_earth, au
 import spiceypy as sp
 from datetime import datetime, timedelta
 
@@ -17,7 +17,6 @@ def special_time_dilation(v, dt):
 
 
 def general_time_dilation(M, r, dt):
-    #dt_ = dt * np.sqrt( 1 - (2*G*M)/(r*(c**2)) )
     rs = (2*G*M) / (c**2)
     dt_ = dt / np.sqrt( 1 - (rs/r) )
     return dt_
@@ -28,8 +27,10 @@ def orbital_time_dilation(M, r, dt):
     dt_ = dt / np.sqrt( 1 - 1.5*(rs/r) )
     return dt_
 
+
+
 def get_dilation(ts):
-    adr = 'C:/Users/H21/Desktop/Desktop/Behrouz/Astronomy/kernels/'
+    adr = 'C:/Moi/_py/Astronomy/Solar System/kernels/'
     sp.furnsh(adr+'de440s.bsp')
     sp.furnsh(adr+'naif0012.tls')
     delta_t = 1*u.s
@@ -76,9 +77,12 @@ ts = [i.isoformat().replace('T', ' ') + ' UTC' for i in dates]
 
 special, general, orbital = get_dilation(ts)
 
+general_earth = general_time_dilation(M_earth, R_earth, dt=1*u.s)
+
 dt_sp = special - 1
 dt_ge = general - 1
-total = 1 + (dt_sp + dt_ge)
+dt_ge_earth = general_earth.value - 1
+total = 1 + (dt_sp + dt_ge + dt_ge_earth)
 
 #total = (1-special) + (1-general)
 
@@ -91,11 +95,13 @@ dts = (Time(dates2, scale='utc').tcb - Time(dates, scale='utc').tcb).sec
 
 fig, ax = plt.subplots()
 
-ax.plot(dates, total, c='k')
+ax.plot(dates, total, c='b', alpha=0.5) # formula
+ax.scatter(dates, dts, s=1, c='r', alpha=0.5) #astropy
+
 ##ax.plot(dates, special, c='b')
 ##ax.plot(dates, general, c='r')
-ax.plot(dates, orbital, c='r')
-ax.scatter(dates, dts, s=5, c='g') #astropy
+##ax.plot(dates, orbital, c='r')
+
 
 ax.ticklabel_format(axis="y", useOffset=False, style='plain')
 plt.grid()
