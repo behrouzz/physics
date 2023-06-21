@@ -96,8 +96,8 @@ ax.plot(dates, 1-orbital, c='r')
 ##ax.plot(dates, 1-general, 'b', label='GR')
 
 ##ax.plot(dates, special-general)
-#plt.title('Time dilation due to Special and General Relativity')
-plt.title('Time dilation difference (Special - General)')
+plt.title('Time dilation due to Special and General Relativity')
+
 plt.legend()
 plt.grid()
 plt.show()
