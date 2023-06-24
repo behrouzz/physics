@@ -30,7 +30,8 @@ def orbital_time_dilation(M, r, dt):
 
 
 def get_dilation(ts):
-    adr = 'C:/Moi/_py/Astronomy/Solar System/kernels/'
+    #adr = 'C:/Moi/_py/Astronomy/Solar System/kernels/'
+    adr = 'C:/Users/H21/Desktop/Desktop/Behrouz/Astronomy/kernels/'
     sp.furnsh(adr+'de440s.bsp')
     sp.furnsh(adr+'naif0012.tls')
     delta_t = 1*u.s
