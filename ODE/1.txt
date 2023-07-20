@@ -1,0 +1,3 @@
+https://stackoverflow.com/questions/54163539/using-scipy-solve-ivp-for-equation-with-initial-conditions
+https://media.ed.ac.uk/media/Solving+Differential+Equations+in+PythonA+Higher+order+ODEs+with+solve_ivp/1_c8g7fwhw
+https://pythonnumericalmethods.berkeley.edu/notebooks/Index.html
